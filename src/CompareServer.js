@@ -53,7 +53,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
       .filter(p => p.server === server)
       .sort((a, b) => b.power - a.power)
       .slice(0, 3);
-  }, [server]);
+  }, [server,servers]);
 
   // histogram data
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +70,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
       data.push({ bin: b, count: counts[b] || 0 });
     }
     return data;
-  }, [server]);
+  }, [server, servers]);
 
   const confirm = v => {
     setInputValue(v);
