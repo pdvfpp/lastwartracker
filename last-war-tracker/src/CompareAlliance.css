@@ -1,0 +1,185 @@
+/* Container padding */
+.compare-alliance-container {
+  padding: 20px;
+}
+
+/* Slot outline with transitions, hover, and drag styles */
+.alliance-slot {
+  position: relative;
+  width: calc(100% - 40px);
+  height: 180px;
+  margin: 40px auto;
+  border: 2px dashed #555;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+.alliance-slot:hover {
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.alliance-slot:active {
+  cursor: grabbing;
+}
+.alliance-slot.dragging {
+  opacity: 0.6; /* Adjust this value to change drag transparency */
+}
+
+/* Remove button */
+.remove-slot-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #50ebfcff;
+  color: #0b0c10;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Add slot button */
+.add-slot-button {
+  width: 60px;
+  height: 60px;
+  margin: 20px auto;
+  border-radius: 50%;
+  background: #393E46;
+  color: #EEEEEE;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Octagonal badge */
+.alliance-octagon {
+  position: absolute;
+  top: 22px;
+  left: 12px;
+  width: 130px;
+  height: 130px;
+  clip-path: polygon(
+    20% 0%, 80% 0%,
+    100% 20%, 100% 80%,
+    80% 100%, 20% 100%,
+    0% 80%, 0% 20%
+  );
+  border: 4px solid #50ebfcff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  background: linear-gradient(to right, #f9c74f, #f9844a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Quick-search input */
+.alliance-select {
+  position: absolute;
+  top: -32px;
+  left: 12px;
+  width: 120px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #1f2833;
+  background-color: #1f2833;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: text;
+}
+
+/* Suggestions dropdown */
+.alliance-dropdown {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  width: 120px;
+  max-height: 120px;
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+  background-color: #2a3540;
+  color: #ffffff;
+  border: 1px solid #1f2833;
+  border-radius: 4px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+.alliance-dropdown li {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.alliance-dropdown li:hover {
+  background-color: #39414a;
+}
+
+/* Server info: power rate and total power */
+.alliance-info {
+  margin: 26px 16px 16px 180px; /* closer to octagon */
+  font-size: 18px;
+  text-align: left;
+}
+
+/* Numerical styling for power values */
+.power-rate-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #50ebfcff;
+  margin-left: 4px;
+}
+.total-power-value {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* Server Stars heading */
+.alliance-stars h4 {
+  font-size: 21px;
+  color: #50ebfcff;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Player line styling */
+.player-line {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+/* Player name styling */
+.player-line .player-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #f9c74f;
+}
+
+/* Player power spacing */
+.player-line .player-power {
+  margin-left: 8px;
+}
+
+.player-line {
+  display: flex;
+  align-items: center;
+  font-size: 16px;    /* whatever you set inline before */
+  color: #ffffff;
+  gap: 0px;          /* replaces word-spacing */
+}
+
+/* Alliance bracket, name, and power are in separate spans now */
+.star-alliance { /* optional extra styling */ }
+.star-name     { /* maybe accent color */ }
+.star-power    { /* maybe lighter color or right margin if needed */ }
