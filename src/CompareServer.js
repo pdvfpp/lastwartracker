@@ -40,7 +40,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
   const members = useMemo(() => {
     if (!servers.includes(server)) return [];
     return playerData.filter(p => p.server === server);
-  }, [server, servers]); // include servers
+  }, [server, servers]);
 
   const totalPowerRaw = members.reduce((sum, p) => sum + p.power, 0);
   const totalPowerG = Math.round((totalPowerRaw / 1e9) * 100) / 100;
