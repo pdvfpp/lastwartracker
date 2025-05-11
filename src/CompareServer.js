@@ -53,7 +53,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
       .filter(p => p.server === server)
       .sort((a, b) => b.power - a.power)
       .slice(0, 3);
-  }, [server,servers]);
+  }, [server]);
 
   // histogram data
   // eslint-disable-next-line react-hooks/exhaustive-deps
