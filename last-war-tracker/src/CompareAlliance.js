@@ -56,9 +56,12 @@ function AllianceSlot({ id, alliance, onRemove, onChangeAlliance, alliances, dra
     : [];
 
   // members and totals
-  const members = alliances.includes(alliance)
-    ? playerData.filter(p => p.alliance === alliance)
-    : [];
+  const members = useMemo(() => {
+  if (alliances.includes(alliance)) {
+    return playerData.filter(p => p.alliance === alliance);
+  }
+  return [];
+}, [alliance]);
   const totalPowerRaw = members.reduce((sum, p) => sum + p.power, 0);
   const totalPowerG = Math.round((totalPowerRaw / 1e9) * 100) / 100;
 
