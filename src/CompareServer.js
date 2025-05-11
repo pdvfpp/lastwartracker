@@ -40,7 +40,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
   const members = useMemo(() => {
     if (!servers.includes(server)) return [];
     return playerData.filter(p => p.server === server);
-  }, [server, servers]);
+  }, [server, servers]); // include servers
 
   const totalPowerRaw = members.reduce((sum, p) => sum + p.power, 0);
   const totalPowerG = Math.round((totalPowerRaw / 1e9) * 100) / 100;
@@ -57,7 +57,9 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
 
   // histogram data
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const histData = useMemo(() => {
+  // ESLint wants servers as dependency here, but histData only depends on server
+// eslint-disable-next-line react-hooks/exhaustive-deps
+const histData = useMemo(() => {
     const counts = {};
     playerData
       .filter(p => p.server === server)
@@ -70,7 +72,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
       data.push({ bin: b, count: counts[b] || 0 });
     }
     return data;
-  }, [server, servers]);
+  }, [server]);
 
   const confirm = v => {
     setInputValue(v);
