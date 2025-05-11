@@ -17,6 +17,22 @@ const allPowers = playerData.map(p => p.power);
 const globalMin = Math.floor(Math.min(...allPowers) / BIN_SIZE) * BIN_SIZE;
 const globalMax = Math.ceil(Math.max(...allPowers) / BIN_SIZE) * BIN_SIZE;
 
+// Power-rate norm by server (similar to allianceRates)
+const serverRates = (() => {
+  const p = 2;
+  const sums = {};
+  playerData.forEach(({ server, power }) => {
+    sums[server] = (sums[server] || 0) + Math.pow(power, p);
+  });
+  const norms = Object.fromEntries(
+    Object.entries(sums).map(([sv, sumP]) => [sv, Math.pow(sumP, 1 / p)])
+  );
+  const maxNorm = Math.max(...Object.values(norms));
+  return Object.fromEntries(
+    Object.entries(norms).map(([sv, val]) => [sv, Math.round((val / maxNorm) * 10000) / 100])
+  );
+})();
+
 function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandlers }) {
   const [inputValue, setInputValue] = useState(server != null ? String(server) : '');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -36,11 +52,12 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
     ? servers.filter(s => s.toString().startsWith(inputValue))
     : [];
 
-  // members and totals
+  // members
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const members = useMemo(() => {
     if (!servers.includes(server)) return [];
     return playerData.filter(p => p.server === server);
-  }, [server, servers]); // include servers
+  }, [server]);
 
   const totalPowerRaw = members.reduce((sum, p) => sum + p.power, 0);
   const totalPowerG = Math.round((totalPowerRaw / 1e9) * 100) / 100;
@@ -57,9 +74,7 @@ function ServerSlot({ id, server, onRemove, onChangeServer, servers, dragHandler
 
   // histogram data
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // ESLint wants servers as dependency here, but histData only depends on server
-// eslint-disable-next-line react-hooks/exhaustive-deps
-const histData = useMemo(() => {
+  const histData = useMemo(() => {
     const counts = {};
     playerData
       .filter(p => p.server === server)
@@ -106,7 +121,7 @@ const histData = useMemo(() => {
       {servers.includes(server) && (
         <>
           <div className="server-info">
-            <p><strong>Power rate:</strong> <span className="power-rate-value">{/* calculate rate here */}</span></p>
+            <p><strong>Power rate:</strong> <span className="power-rate-value">{serverRates[server]}</span></p>
             <p><strong>Total Power:</strong> <span className="total-power-value">{totalPowerG} G</span></p>
             <p><strong>Members:</strong> <span className="total-power-value">{members.length}</span></p>
           </div>
